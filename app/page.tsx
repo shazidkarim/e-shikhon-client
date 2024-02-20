@@ -1,5 +1,7 @@
 "use client";
 import React, { FC, useState } from "react";
+import Heading from "./utils/Heading";
+import Header from "./components/Header";
 interface Props {}
 
 const Page: FC<Props> = (props) => {
@@ -9,7 +11,17 @@ const Page: FC<Props> = (props) => {
 
   return (
     <div>
-      <h1>this is shazid karim</h1>
+      <Heading
+        title="e-Shikhon"
+        description="Learning"
+        keywords="React,Fron end ,"
+      />
+      <Header
+      open={open}
+      setOpen={setOpen}
+      activeItem={activeItem}
+      />
+      <h1>hello world</h1>
     </div>
   );
 };
