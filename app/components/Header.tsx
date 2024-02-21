@@ -1,14 +1,14 @@
 'use client'
 import Link from 'next/link';
-import React,{FC, useState} from 'react'
-
+import React,{FC, useState} from 'react';
+import NavItems from '../utils/NavItems';
 type Props = {
     open: boolean;
   setOpen: (open: boolean) => void;
   activeItem: number;
 }
 
-const Header: FC<Props> =(props: Props) => {
+const Header: FC<Props> =({activeItem}) => {
     const [active, setActive] = useState(false);
     const [openSidebar, setOpenSidebar] = useState(false);
     if (typeof window !== "undefined") {
@@ -38,6 +38,10 @@ const Header: FC<Props> =(props: Props) => {
               >
                 eShikhon
               </Link>
+            </div>
+            <div className="flex items-center">
+              <NavItems activeItem={activeItem} isMobile={false} />
+              
             </div>
           </div>
         </div>
