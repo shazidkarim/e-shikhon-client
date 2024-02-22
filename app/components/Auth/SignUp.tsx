@@ -17,27 +17,46 @@ type Props = {
   setOpen: (route: boolean) => void;
 }
 const schema = Yup.object().shape({
+    name: Yup.string().required('please inter your name'),
     email: Yup.string()
       .email("Invalid email!")
       .required("Please enter your  email"),
     password: Yup.string().required("Please enter your password !").min(6),
   });
   
-  const Login: FC<Props> = ({ setRoute, setOpen }) => {
+  const Signup: FC<Props> = ({ setRoute, setOpen }) => {
       const [show, setShow] = useState(false);
       const formik = useFormik({
-          initialValues: { email: "", password: "" },
+          initialValues: {name:"", email: "", password: "" },
           validationSchema: schema,
           onSubmit: async ({ email, password }) => {
               console.log(email,password);
+              setRoute("Verification")
             },
         });
     const { errors, touched, values, handleChange, handleSubmit } = formik;
   
     return (
         <div className="w-full">
-         <h1 className={`${styles.title}`}>Login width e-Shikhon</h1>
+         <h1 className={`${styles.title}`}>Join To  eShikhon</h1>
          <form onSubmit={handleSubmit}>
+            <div className='mb-3'>
+            <label className={`${styles.label}`} htmlFor="email">
+          Enter your name
+        </label>
+        <input
+          type="text"
+          name=""
+          value={values.name}
+          onChange={handleChange}
+          id="name"
+          placeholder="shazid karim"
+          className={` ${errors.name && touched.name && "border-red-500"} ${styles.input} `}
+        />
+        {errors.name && touched.name && (
+          <span className="text-red-500 pt-2 block">{errors.name}</span>
+        )}
+            </div>
          <label className={`${styles.label}`} htmlFor="email">
           Enter your email
         </label>
@@ -82,12 +101,12 @@ const schema = Yup.object().shape({
               onClick={() => setShow(false)}
             />
           )}
+        </div>
            {errors.password && touched.password && (
           <span className="text-red-500 pt-2 block">{errors.password}</span>
         )}
-        </div>
         <div className="w-full mt-5">
-          <input type="submit" value="Login" className={`${styles.button}`} />
+          <input type="submit" value="Signup" className={`${styles.button}`} />
         </div>
         <br />
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white ">
@@ -107,12 +126,12 @@ const schema = Yup.object().shape({
         </div>
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white ">
           {" "}
-          Not have any account?{" "}
+          Already have an account?{" "}
           <span
             className="text-[#2190ff] pl-1 cursor-pointer"
             onClick={() => setRoute("Sign-Up")}
           >
-            Sign up
+            Sign in
           </span>
         </h5>
          </form>
@@ -121,4 +140,4 @@ const schema = Yup.object().shape({
   )
 }
 
-export default Login;
+export default Signup;
