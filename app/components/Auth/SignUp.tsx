@@ -129,7 +129,7 @@ const schema = Yup.object().shape({
           Already have an account?{" "}
           <span
             className="text-[#2190ff] pl-1 cursor-pointer"
-            onClick={() => setRoute("Sign-Up")}
+            onClick={() => setRoute("Login")}
           >
             Sign in
           </span>

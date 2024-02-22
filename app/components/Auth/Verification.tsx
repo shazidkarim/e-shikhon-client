@@ -31,6 +31,7 @@ type VerifyNumber = {
       });
 
       const verifictionHandler = async () => {
+        setInvalidError(true)
         console.log("test");
       };
 
@@ -75,6 +76,22 @@ type VerifyNumber = {
       </div>
       <br />
       <br />
+      <div className="w-full flex justify-center">
+        <button className={`${styles.button}`} onClick={verifictionHandler}>
+          Verify OTP
+        </button>
+      </div>
+      <br />
+      <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
+        Go back to sign in?{" "}
+        <span
+          className="text-[#2190ff] pl-1 cursor-pointer"
+          onClick={() => setRoute("Login")}
+        >
+            
+          Sign in
+        </span>
+      </h5>
     </div>
   )
 }
