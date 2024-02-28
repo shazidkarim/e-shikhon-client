@@ -11,6 +11,8 @@ import {
     AiFillGithub,
   } from "react-icons/ai";
   import { FcGoogle } from "react-icons/fc";
+import { useLoginMutation } from '@/redux/features/auth/authApi';
+import toast from 'react-hot-toast';
 
 type Props = {
     setRoute: (route: string) => void;
@@ -25,13 +27,27 @@ const schema = Yup.object().shape({
   
   const Login: FC<Props> = ({ setRoute, setOpen }) => {
       const [show, setShow] = useState(false);
+      const [login, { isSuccess, error, data }] = useLoginMutation();
       const formik = useFormik({
           initialValues: { email: "", password: "" },
           validationSchema: schema,
           onSubmit: async ({ email, password }) => {
-              console.log(email,password);
+            await login({ email, password });
+            console.log(email,password);
             },
         });
+        useEffect(() => {
+          if (isSuccess) {
+            toast.success("Login Successfully!");
+            setOpen(false);
+          }
+          if (error) {
+            if ("data" in error) {
+              const errorDarta = error as any;
+              toast.error(errorDarta.data.message);
+            }
+          }
+        }, [isSuccess, error]);
     const { errors, touched, values, handleChange, handleSubmit } = formik;
   
     return (
