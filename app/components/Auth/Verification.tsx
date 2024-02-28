@@ -122,4 +122,4 @@ type VerifyNumber = {
   )
 }
 
-export default Verification
+export default Verification;

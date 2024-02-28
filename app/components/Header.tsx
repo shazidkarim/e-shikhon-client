@@ -8,6 +8,9 @@ import CustomModal from "./utils/CustomModal";
 import Login from "../components/Auth/login";
 import SignUp from "../components/Auth/SignUp";
 import Verification from "../components/Auth/Verification";
+import { useSelector } from 'react-redux';
+import Image from 'next/image';
+import avatar from "../../public/client-1.jpg"
 type Props = {
     open: boolean;
   setOpen: (open: boolean) => void;
@@ -19,6 +22,7 @@ type Props = {
 const Header: FC<Props> =({activeItem,setOpen,route,open,setRoute}) => {
     const [active, setActive] = useState(false);
     const [openSidebar, setOpenSidebar] = useState(false);
+    const { user } = useSelector((state: any) => state.auth);
     if (typeof window !== "undefined") {
         window.addEventListener("scroll", () => {
           if (window.scrollY > 80) {
@@ -35,6 +39,7 @@ const Header: FC<Props> =({activeItem,setOpen,route,open,setRoute}) => {
           }
         }
       };
+      console.log("user:",user);
   return (
     <div className='w-full relative'>
         <div
@@ -65,11 +70,26 @@ const Header: FC<Props> =({activeItem,setOpen,route,open,setRoute}) => {
                   onClick={() => setOpenSidebar(true)}
                 />
               </div>
-              <HiOutlineUserCircle
+              {user ? (
+                <Link href={"/profile"}>
+                  <Image
+                    className="w-[30px] h-[30px] rounded-full"
+                    alt=""
+                    width={30}
+                    height={30}
+                    src={user.avatar ? user.avatar.url : avatar}
+                    style={{
+                      border: activeItem === 5 ? "2px solid #ffc107" : "none",
+                    }}
+                  />
+                </Link>
+              ) : (
+                <HiOutlineUserCircle
                   size={25}
                   className="hidden 800px:block cursor-pointer dark:text-white text-black"
                   onClick={() => setOpen(true)}
                 />
+              )}
             </div>
           </div>
         </div>

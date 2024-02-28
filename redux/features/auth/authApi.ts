@@ -46,7 +46,7 @@ export const authApi = apiSlice.injectEndpoints({
               method: "POST",
               body: {
                 email,
-                password
+                password,
               },
               credentials:"include" as const,
             }),
