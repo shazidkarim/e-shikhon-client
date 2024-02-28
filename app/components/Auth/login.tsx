@@ -13,6 +13,7 @@ import {
   import { FcGoogle } from "react-icons/fc";
 import { useLoginMutation } from '@/redux/features/auth/authApi';
 import toast from 'react-hot-toast';
+import { signIn } from 'next-auth/react';
 
 type Props = {
     setRoute: (route: string) => void;
@@ -111,12 +112,12 @@ const schema = Yup.object().shape({
         </h5>
         <div className="flex items-center justify-center my-3">
           <FcGoogle
-            // onClick={() => signIn("google")}
+            onClick={() => signIn("google")}
             size={30}
             className="cursor-pointer ml-2"
           />
           <AiFillGithub
-            // onClick={() => signIn("github")}
+            onClick={() => signIn("github")}
             size={30}
             className="cursor-pointer ml-2 dark:text-white "
           />
