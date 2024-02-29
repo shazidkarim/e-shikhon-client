@@ -54,7 +54,6 @@ const schema = Yup.object().shape({
               password,
             };
             await register(data);
-            console.log(data);
             },
         });
     const { errors, touched, values, handleChange, handleSubmit } = formik;

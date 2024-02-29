@@ -59,6 +59,7 @@ type VerifyNumber = {
       activation_token: token,
       activation_code: verifictioNumber,
     });
+    console.log(token,verifictioNumber)
   };
 
       const handleInputChange = (index: number, value: string) => {
