@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { signOut } from "next-auth/react";
+import SideBarProfile from './SideBarProfile';
 
 type Props = {
   user: any;
@@ -33,6 +34,12 @@ const Profile: FC<Props> = ({ user }) => {
         } left-[30px]  
         `}
       >
+        <SideBarProfile
+          user={user}
+          active={active}
+          avatar={avatar}
+          setActive={setActive}
+          logouutHanmler={logOutHandler}/>
       </div>
     </div>
   );
