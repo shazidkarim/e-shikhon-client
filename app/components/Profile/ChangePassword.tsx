@@ -93,5 +93,4 @@ const ChangePassword: FC<Props> = () => {
     </div>
   );
 };
-
 export default ChangePassword;

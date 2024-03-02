@@ -18,7 +18,7 @@ export const userApi = apiSlice.injectEndpoints({
             Credential:"incude" as const ,
             })
         }),
-        updateProfile: builder.mutation({
+        updatePassword: builder.mutation({
             query: ({oldPassword,newPassword}) => ({
                 url: "update-user-password",
                 method: "PUT",
