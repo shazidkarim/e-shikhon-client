@@ -22,7 +22,6 @@ const page = () => {
           </div>
           <div className="w-[85%]">
             <DashboardHero />
-            <AllUsers />
           </div>
         </div>
       </AdminProtected>
