@@ -17,6 +17,7 @@ const CourseInformation: FC<Props> = ({
   const [dragging, setDragging] = useState(false);
   const [categories, setCategories] = useState([]);
 
+// here is one line code i skip 
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
