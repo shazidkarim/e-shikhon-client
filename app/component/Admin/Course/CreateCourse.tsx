@@ -12,8 +12,7 @@ import { redirect } from "next/navigation";
 type Props = {};
 
 const CreateCourse = (props: Props) => {
-  const [createCourse, { isLoading, isSuccess, error }] =
-    useCreateCourseMutation();
+  const [createCourse, { isLoading, isSuccess, error }] = useCreateCourseMutation();
   useEffect(() => {
     if (isSuccess) {
       toast.success("Course create Successfully");
@@ -59,7 +58,6 @@ const CreateCourse = (props: Props) => {
   const [courseData, setCourseData] = useState({});
 
   const handleSubmit = () => {
-    // Formet benefits array
     const formettedBenefits = benefits.map((benefit) => ({
       title: benefit.title,
     }));
@@ -67,7 +65,6 @@ const CreateCourse = (props: Props) => {
       title: prerequisite.title,
     }));
 
-    // Frome course contant array
     const formattedCourseContentData = courseContentData.map(
       (courseContent) => ({
         videoUrl: courseContent.videoUrl,
@@ -82,7 +79,7 @@ const CreateCourse = (props: Props) => {
         suggestion: courseContent.suggestion,
       })
     );
-    // prepare our data object
+    
     const data = {
       name: courseInfo.name,
       description: courseInfo.description,
