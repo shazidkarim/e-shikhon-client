@@ -1,43 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Modal } from "@mui/material";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineMail } from "react-icons/ai";
 import { useTheme } from "next-themes";
-import { FiEdit2 } from "react-icons/fi";
-import {useDeleteCoursesMutation,useGetAllCoursesQuery,} from "@/redux/features/courses/coursesApi";
 import Loader from "../../Loader";
 import { format } from "timeago.js";
-import toast from "react-hot-toast";
+import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
+import { styles } from "@/app/styles/style";
 
-type Prorps = {};
+type Props = {
+  isTeam: boolean;
+};
 
-const AllCourses = () => {
+const AllUsers: FC<Props> = ({ isTeam }) => {
   const { theme, setTheme } = useTheme();
+  const { isLoading, data, error } = useGetAllUsersQuery({});
+  const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
-  const [courseId, setCourseId] = useState("");
-  const { isLoading, data, refetch } = useGetAllCoursesQuery({},{ refetchOnMountOrArgChange: true });
-  const [deleteCourse, { isSuccess, error }] = useDeleteCoursesMutation();
+  const [userId, setUserId] = useState("");
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "title", headerName: "Course Title", flex: 1 },
-    { field: "ratings", headerName: "Ratings", flex: 0.5 },
-    { field: "purchased", headerName: "Purchased", flex: 0.5 },
-    { field: "created_at", headerName: "Created At", flex: 0.5 },
-    {
-      field: " ",
-      headerName: "Edit",
-      flex: 0.2,
-      renderCell: (params: any) => {
-        return (
-          <>
-            <Button>
-              <FiEdit2 className="dark:text-white text-black" size={20} />
-            </Button>
-          </>
-        );
-      },
-    },
+    { field: "id", headerName: "ID", flex: 0.3 },
+    { field: "name", headerName: "Name", flex: 0.5 },
+    { field: "email", headerName: "Email", flex: 0.5 },
+    { field: "role", headerName: "Role", flex: 0.5 },
+    { field: "courses", headerName: "Purrchased Courses", flex: 0.5 },
+    { field: "created", headerName: "Joined At", flex: 0.5 },
     {
       field: "",
       headerName: "Delete",
@@ -48,7 +36,7 @@ const AllCourses = () => {
             <Button
               onClick={() => {
                 setOpen(!open);
-                setCourseId(params.row.id);
+                setUserId(params.row.id);
               }}
             >
               <AiOutlineDelete
@@ -60,41 +48,58 @@ const AllCourses = () => {
         );
       },
     },
+    {
+      field: " ",
+      headerName: "Email",
+      flex: 0.2,
+      renderCell: (params: any) => {
+        return (
+          <>
+            <a href={`mailto:${params.row.email}`}>
+              <Button>
+                <AiOutlineMail
+                  className="dark:text-white text-black"
+                  size={20}
+                />
+              </Button>
+            </a>
+          </>
+        );
+      },
+    },
   ];
 
   const rows: any = [];
 
-  {
-    data && data.courses.forEach((item: any) => {
+  if (isTeam) {
+    const newData =
+      data && data.users.filter((item: any) => item.role === "admin");
+    newData &&
+      newData.forEach((item: any) => {
         rows.push({
           id: item._id,
-          title: item.name,
-          rating: item.rating,
-          purchased: item.purchased,
+          name: item.name,
+          email: item.email,
+          role: item.role,
+          courses: item.courses.length,
           created_at: format(item.createdAt),
         });
       });
+  } else {
+    {
+      data &&
+        data.users.forEach((item: any) => {
+          rows.push({
+            id: item._id,
+            name: item.name,
+            email: item.email,
+            role: item.role,
+            courses: item.courses.length,
+            created_at: format(item.createdAt),
+          });
+        });
+    }
   }
-
-  useEffect(() => {
-    if (isSuccess) {
-      setOpen(false);
-      refetch();
-      toast.success("Course Delete Successfully");
-    }
-    if (error) {
-      if ("data" in error) {
-        const errorMessage = error as any;
-        toast.error(errorMessage.data.message);
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, error]);
-
-  const handleDelete = async () => {
-    const id = courseId;
-    await deleteCourse(id);
-  };
 
   return (
     <div className="mt-[120px]">
@@ -102,9 +107,26 @@ const AllCourses = () => {
         <Loader />
       ) : (
         <Box m="20px">
-          <Box m="40px 0 0 0 "height="80vh"sx={{"& .MuiDataGrid-root": {border: "none",outline: "none",},
-            "& .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon": {color: theme === " dark" ? "#fff" : "#000",},
-            "& .MuiDataGrid-sortIcon": {
+          <div className="w-full flex justify-end">
+            <div
+              className={`${styles.button} !w-[200px] dark:bg-[#57c7a3] !h-[35px] dark:border dark:border-[#ffffff6c] `}
+              onClick={() => setActive(!active)}
+            >
+              Add New Member
+            </div>
+          </div>
+          <Box
+            m="40px 0 0 0 "
+            height="80vh"
+            sx={{
+              "& .MuiDataGrid-root": {
+                border: "none",
+                outline: "none",
+              },
+              "& .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon": {
+                color: theme === " dark" ? "#fff" : "#000",
+              },
+              "& .MuiDataGrid-sortIcon": {
                 color: theme === " dark" ? "#fff" : "#000",
               },
               "& .MuiDataGrid-row": {
@@ -158,7 +180,7 @@ const AllCourses = () => {
                 <h1>Are you sure you want to delete this user?</h1>
                 <div>
                   <div>Cancel</div>
-                  <div onClick={handleDelete}>Delete</div>
+                  <div>Delete</div>
                 </div>
               </Box>
             </Modal>
@@ -169,4 +191,4 @@ const AllCourses = () => {
   );
 };
 
-export default AllCourses;
+export default AllUsers;
