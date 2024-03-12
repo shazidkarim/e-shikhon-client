@@ -4,7 +4,7 @@ import React from "react";
 import Heading from "../../../app/utils/Heading";
 import DashboardHero from "../../../app/components/Admin/DashboardHero";
 import AdminSidebar from '../../components/Admin/sidebar/AdminSidebar';
-import AllUsers from '../../component/Admin/users/AllUsers.tsx';
+import AllUsers from '../../component/Admin/users/AllUsers';
 type Props = {};
 
 const page = () => {
@@ -22,7 +22,7 @@ const page = () => {
           </div>
           <div className="w-[85%]">
             <DashboardHero />
-            <AllUsers />
+            <AllUsers isTeam={true} />
           </div>
         </div>
       </AdminProtected>
