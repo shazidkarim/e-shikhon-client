@@ -12,7 +12,7 @@ import {
 
 import Loader from "../../Loader";
 import { useGetCoursesAnalyticsQuery } from "../../../../redux/features/analytics/analyticsApi";
-import { styles } from "../../../../app/styles/style";
+import { styles } from "../../../styles/style";
 
 const CoursesAnalutics = () => {
   const { data, isLoading } = useGetCoursesAnalyticsQuery({});

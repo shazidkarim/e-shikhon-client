@@ -10,22 +10,23 @@ type Props = {};
 const page = () => {
   return (
     <div>
-      <AdminProtected>
-        <Heading
-          title="e-shikhon - Admin"
-          description="admin"
-          keywords="Programing"
-        />
-        <div className="flex h-[200vh]">
-          <div className="1500px:w-[16%] w-1/2">
-            <AdminSidebar />
-          </div>
-          <div className="w-[85%]">
-            <DashboardHero />
-          </div>
+    <AdminProtected>
+      <Heading
+        title={`e-Shikhon - Admin`}
+        description="Learning"
+        keywords="React,Fron end ,"
+      />
+
+      <div className="flex h-[200vh] ">
+        <div className="1500px:w-[16%] w-1/2">
+          <AdminSidebar />
         </div>
-      </AdminProtected>
-    </div>
+        <div className="w[85%]">
+          <DashboardHero isDashboard={true} />
+        </div>
+      </div>
+    </AdminProtected>
+  </div>
   );
 };
 

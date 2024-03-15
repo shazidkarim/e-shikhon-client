@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
 import Heading from "../../../app/utils/Heading";
-import DashboardHeader from "../../../app/components/Admin/DashboardHeader";
-import AdminSidebar from  '../../components/Admin/sidebar/AdminSidebar';
-import CourseAnalytics from "../../component/Admin/Analytics/CourseAnalytics";
-
+import DashboardHero from "../../../app/components/Admin/DashboardHero";
+import AllInvoices from "../../../app/component/order/AllInvoices";
+import AdminSidebar from '../../components/Admin/sidebar/AdminSidebar';
 type Props = {};
 
 const page = () => {
@@ -16,12 +15,12 @@ const page = () => {
         keywords="Programing"
       />
       <div className="flex">
-        <div className="1500px:w-[16%] w-1/5">
-          <AdminSidebar/>
+        <div className="1500px:w-[16%] w-1/2">
+          <AdminSidebar />
         </div>
         <div className="w-[85%]">
-          <DashboardHeader/>
-          <CourseAnalytics />
+          <DashboardHero />
+          <AllInvoices/>
         </div>
       </div>
     </div>
