@@ -10,7 +10,7 @@ type Props = {};
 const page = () => {
   return (
     <div>
-    <AdminProtected>
+    {/* <AdminProtected> */}
       <Heading
         title={`e-Shikhon - Admin`}
         description="Learning"
@@ -25,7 +25,7 @@ const page = () => {
           <DashboardHero isDashboard={true} />
         </div>
       </div>
-    </AdminProtected>
+    {/* </AdminProtected> */}
   </div>
   );
 };

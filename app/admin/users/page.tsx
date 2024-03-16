@@ -10,7 +10,7 @@ type Props = {};
 const page = () => {
   return (
     <div>
-      <AdminProtected>
+      {/* <AdminProtected> */}
         <Heading
           title="e-shikhon - Admin"
           description="admin"
@@ -25,7 +25,7 @@ const page = () => {
             <AllUsers isTeam={true} />
           </div>
         </div>
-      </AdminProtected>
+      {/* </AdminProtected> */}
     </div>
   );
 };

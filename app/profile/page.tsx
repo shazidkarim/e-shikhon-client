@@ -14,7 +14,7 @@ const Page: FC<Props> = ({ }) => {
     const [route, setRoute] = useState("Login");
     const { user } = useSelector((state: any) => state.auth);
   return (
-    <Protected>
+  <>
     <Heading
       title={`profile - e-Shikhon`}
       description="Learning"
@@ -28,7 +28,7 @@ const Page: FC<Props> = ({ }) => {
       route={route}
     />
     <Profile user={user}/>
-  </Protected>
+  </>
   )
 }
 

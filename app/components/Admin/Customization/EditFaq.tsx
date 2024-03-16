@@ -18,47 +18,47 @@ const EditFaq = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  const [question, setQuestion] = useState<any[]>([]);
+  const [questions, setQuestions] = useState<any[]>([]);
 
   const [editLayout, { isSuccess: layoutSuccess, error }] =
     useEditLayoutMutation();
 
   useEffect(() => {
     if (data) {
-      setQuestion(data.layout.faq);
+      setQuestions(data.layout.faq);
     }
-    if (layoutSuccess) {
-      toast.success("Hero updated successfully!");
-    }
-    if (error) {
-      if ("data" in error) {
-        const errorData = error as any;
-        toast.error(errorData?.data?.message);
-      }
-    }
-  }, [data, layoutSuccess, error]);
+    // if (layoutSuccess) {
+    //   toast.success("Hero updated successfully!");
+    // }
+    // if (error) {
+    //   if ("data" in error) {
+    //     const errorData = error as any;
+    //     toast.error(errorData?.data?.message);
+    //   }
+    // }
+  }, [data]);
 
   const toggleQuestion = (id: any) => {
-    setQuestion((prevQuestions) =>
+    setQuestions((prevQuestions) =>
       prevQuestions.map((q) => (q._id === id ? { ...q, active: !q.active } : q))
     );
   };
 
   const handleQuestionChange = (id: any, value: string) => {
-    setQuestion((prevQuestions) =>
+    setQuestions((prevQuestions) =>
       prevQuestions.map((q) => (q._id === id ? { ...q, question: value } : q))
     );
   };
 
   const handleAnswerChange = (id: any, value: string) => {
-    setQuestion((prevQuestions) =>
+    setQuestions((prevQuestions) =>
       prevQuestions.map((q) => (q._id === id ? { ...q, answer: value } : q))
     );
   };
 
   const newFaqHandler = () => {
-    setQuestion([
-      ...question,
+    setQuestions([
+      ...questions,
       {
         question: "",
         answer: "",
@@ -78,15 +78,16 @@ const EditFaq = () => {
   };
 
   const handleEdit = async () => {
-    if (
-      !areQuestionsUnchanged(data.layout.faq, question) &&
-      !isAnyQuestionEmpty(question)
-    ) {
-      await editLayout({
-        type: "FAQ",
-        faq: question,
-      });
-    }
+  //   if (
+  //     !areQuestionsUnchanged(data.layout.faq, questions) &&
+  //     !isAnyQuestionEmpty(questions)
+  //   ) {
+  //     await editLayout({
+  //       type: "FAQ",
+  //       faq: questions,
+  //     });
+  //   }
+  console.log("faq")
   };
 
   return (
@@ -97,14 +98,14 @@ const EditFaq = () => {
         <div className=" w-[90%] 800px:w-[80%] m-auto mt-[120px]  ">
           <div className="mt-12">
             <dl>
-              {question.map((q: any) => (
+              {questions.map((q: any) => (
                 <div
                   key={q._id}
                   className={`${
-                    q._id !== question[0]?._id && "border-t"
+                    q._id !== questions[0]?._id && "border-t"
                   } border-gray-200 pt-6`}
                 >
-                  <dl className="text-lg">
+                  <dt className="text-lg">
                     <button
                       className="flex items-start dark:text-white text-black justify-between w-full text-left focus:outline-none"
                       onClick={() => toggleQuestion(q._id)}
@@ -125,7 +126,7 @@ const EditFaq = () => {
                         )}
                       </span>
                     </button>
-                  </dl>
+                  </dt>
                   {q.active && (
                     <dd className="mt-2 pr-12">
                       <input
@@ -140,7 +141,7 @@ const EditFaq = () => {
                         <AiOutlineDelete
                           className="dark:text-white text-black text-[18px] cursor-pointer"
                           onClick={() => {
-                            setQuestion((prevQuestions) =>
+                            setQuestions((prevQuestions) =>
                               prevQuestions.filter((item) => item._id !== q._id)
                             );
                           }}
@@ -162,14 +163,14 @@ const EditFaq = () => {
             className={`${
               styles.button
             } !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34] ${
-              areQuestionsUnchanged(data.layout.faq, question) ||
-              isAnyQuestionEmpty(question)
+              areQuestionsUnchanged(data.layout.faq, questions) ||
+              isAnyQuestionEmpty(questions)
                 ? "!cursor-not-allowed"
                 : "!cursor-pointer !bg-[#42d383]"
             } !rounded absolute bottom-12 right-12 `}
             onClick={
-              areQuestionsUnchanged(data.layout.faq, question) ||
-              isAnyQuestionEmpty(question)
+              areQuestionsUnchanged(data.layout.faq, questions) ||
+              isAnyQuestionEmpty(questions)
                 ? () => null
                 : handleEdit
             }

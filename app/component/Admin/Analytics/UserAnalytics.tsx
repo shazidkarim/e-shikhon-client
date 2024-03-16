@@ -11,15 +11,15 @@ import Loader from "../../Loader";
 import { useGetUsersAnalyticsQuery } from "../../../../redux/features/analytics/analyticsApi";
 import { styles } from "../../../../app/styles/style";
 
-// const analyticsData = [
-//   { name: "jun", uv: 3 },
-//   { name: "july", uv: 3 },
-//   { name: "August", uv: 3 },
-//   { name: "Sep", uv: 3 },
-//   { name: "Oct", uv: 3 },
-//   { name: "Nov", uv: 3 },
-//   { name: "December", uv: 3 },
-// ];
+const analyticsData = [
+  { name: "jun", uv: 1 },
+  { name: "july", uv: 2 },
+  { name: "August", uv: 7},
+  { name: "Sep", uv: 2},
+  { name: "Oct", uv: 5 },
+  { name: "Nov", uv: 8 },
+  { name: "December", uv: 1 },
+];
 
 type Props = {
   isDashboard?: boolean;
@@ -28,11 +28,11 @@ type Props = {
 const UserAnalytics = ({ isDashboard }: Props) => {
   const { data, isLoading } = useGetUsersAnalyticsQuery({});
 
-  const analyticsData: any = [];
-  data &&
-    data.courses.last12Months.forEach((item: any) => {
-      analyticsData.push({ name: item.month, uv: item.count });
-    });
+  // const analyticsData: any = [];
+  // data &&
+  //   data.courses.last12Months.forEach((item: any) => {
+  //     analyticsData.push({ name: item.month, uv: item.count });
+  //   });
 
   return (
     <>

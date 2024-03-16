@@ -23,7 +23,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
   const rows = [
     {
       id: "555555555555",
-      userName: "Sadiq",
+      userName: "shazid karim",
       UserEmail: "fffdd@ddd",
       title: "jjjjjj",
       price: "999",
@@ -31,7 +31,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
     },
     {
       id: "555555555555",
-      userName: "Sadiq",
+      userName: "shazid",
       UserEmail: "fffdd@ddd",
       title: "jjjjjj",
       price: "999",
@@ -39,7 +39,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
     },
     {
       id: "555555555555",
-      userName: "Sadiq",
+      userName: "shazid",
       UserEmail: "fffdd@ddd",
       title: "jjjjjj",
       price: "999",
@@ -47,7 +47,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
     },
     {
       id: "555555555555",
-      userName: "Sadiq",
+      userName: "shazid",
       UserEmail: "fffdd@ddd",
       title: "jjjjjj",
       price: "999",
@@ -55,7 +55,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
     },
     {
       id: "555555555555",
-      userName: "Sadiq",
+      userName: "shazid",
       UserEmail: "fffdd@ddd",
       title: "jjjjjj",
       price: "999",
@@ -63,7 +63,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
     },
     {
       id: "555555555555",
-      userName: "Sadiq",
+      userName: "shazid",
       UserEmail: "fffdd@ddd",
       title: "jjjjjj",
       price: "999",

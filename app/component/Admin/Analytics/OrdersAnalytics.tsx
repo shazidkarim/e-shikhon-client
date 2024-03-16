@@ -13,36 +13,36 @@ import {
   YAxis,
 } from "recharts";
 
-// const data = [
-//   {
-//     name: "page a",
-//     Count: 100,
-//   },
-//   {
-//     name: "page b",
-//     Count: 100,
-//   },
-//   {
-//     name: "page c",
-//     Count: 100,
-//   },
-//   {
-//     name: "page d",
-//     Count: 100,
-//   },
-//   {
-//     name: "page e",
-//     Count: 100,
-//   },
-//   {
-//     name: "page f",
-//     Count: 100,
-//   },
-//   {
-//     name: "page ু",
-//     Count: 100,
-//   },
-// ];
+const analyticsData = [
+  {
+    name: "page a",
+    Count: 55,
+  },
+  {
+    name: "page b",
+    Count: 40,
+  },
+  {
+    name: "page c",
+    Count: 80,
+  },
+  {
+    name: "page d",
+    Count: 91,
+  },
+  {
+    name: "page e",
+    Count: 27,
+  },
+  {
+    name: "page f",
+    Count: 74,
+  },
+  {
+    name: "page ু",
+    Count: 35,
+  },
+];
 
 type Props = {
   isDashboard?: boolean;
@@ -53,12 +53,12 @@ const OrdersAnalytics = ({ isDashboard }: Props) => {
 
   useEffect(() => {}, []);
 
-  const analyticsData: any = [];
+  // const analyticsData: any = [];
 
-  data &&
-    data.orders.last12Months.forEach((item: any) => {
-      analyticsData.push({ name: item.name, Count: item.count });
-    });
+  // data &&
+  //   data.orders.last12Months.forEach((item: any) => {
+  //     analyticsData.push({ name: item.name, Count: item.count });
+  //   });
 
   return (
     <>

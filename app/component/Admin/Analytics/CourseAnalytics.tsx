@@ -17,21 +17,21 @@ import { styles } from "../../../styles/style";
 const CoursesAnalutics = () => {
   const { data, isLoading } = useGetCoursesAnalyticsQuery({});
 
-  //   const analyticsData = [
-  //     { name: "jun", uv: 3 },
-  //     { name: "july", uv: 3 },
-  //     { name: "August", uv: 3 },
-  //     { name: "Sep", uv: 3 },
-  //     { name: "Oct", uv: 3 },
-  //     { name: "Nov", uv: 3 },
-  //     { name: "December", uv: 3 },
-  //   ];
+    const analyticsData = [
+      { name: "jun", uv: 3 },
+      { name: "july", uv: 3 },
+      { name: "August", uv: 3 },
+      { name: "Sep", uv: 3 },
+      { name: "Oct", uv: 3 },
+      { name: "Nov", uv: 3 },
+      { name: "December", uv: 3 },
+    ];
 
-  const analyticsData: any = [];
-  data &&
-    data.courses.last12Months.forEach((item: any) => {
-      analyticsData.push({ name: item.month, uv: item.count });
-    });
+  // const analyticsData: any = [];
+  // data &&
+  //   data.courses.last12Months.forEach((item: any) => {
+  //     analyticsData.push({ name: item.month, uv: item.count });
+  //   });
 
   const minValue = 0;
 

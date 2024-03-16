@@ -1,6 +1,6 @@
 
 import Image from 'next/image';
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import avatarDefualt from '../../../public/avatar.svg'
 import { RiLockPasswordLine } from 'react-icons/ri';
 import Link from 'next/link';
@@ -15,13 +15,13 @@ type Props = {
     logouutHanmler: any;
 }
 
-const SideBarProfile: FC<Props> = ({
-    user,
-    active,
-    avatar,
-    setActive,
-    logouutHanmler,
-  }) => {
+const SideBarProfile: FC<Props> = ({user,avatar,logouutHanmler, }) => {
+  const [active, setActive] = useState(1);
+  useEffect(() => {
+    if (user) {
+      setActive(6);
+    }
+  }, [user]);
   return (
     <div className="w-full">
       <div
@@ -54,7 +54,7 @@ const SideBarProfile: FC<Props> = ({
           Enrolled Courses
         </h2>
       </div>
-      {user.role === "admin" && (
+      {user  && (
         <Link
           className={`w-full flex items-center px-3 py-4 cursor-pointer ${
             active === 6 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
