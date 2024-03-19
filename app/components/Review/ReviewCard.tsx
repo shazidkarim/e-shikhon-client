@@ -32,6 +32,21 @@ const ReviewCard = (props: Props) => {
                 </div>
                 <Ratings rating = {5}></Ratings>
              </div>
+             {/* for mobile */}
+             <div className='800px:hidden justify-between w-full flex flex-col '>
+                <div className='pl-4'>
+                    <h5 className='text-[20px] text-black dark:text-white'>
+                        {props.item.name}
+                    </h5>
+                    <h6 className='text-[16px] text-[#000] dark:text-[#ffffff]'>
+                        {props.item.profession}
+                    </h6>
+                    <p className='text-[16px] text-[#000] dark:text-[#ffffffab]'>
+                        {props.item.comment}
+                    </p>
+                </div>
+                <Ratings rating = {5}></Ratings>
+             </div>
         </div>
     </div>
   )
