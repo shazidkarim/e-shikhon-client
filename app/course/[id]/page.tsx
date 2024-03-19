@@ -4,7 +4,9 @@ const Page = ({params}:any)=>{
 
     return(
         <div>
-            <CourseDetailsPage/>
+            <CourseDetailsPage id = {params.id}/>
         </div>
     )
 };
+
+export default Page;
