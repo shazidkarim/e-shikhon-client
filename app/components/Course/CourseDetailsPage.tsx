@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { DataArray } from "@mui/icons-material";
 import Header from "../Header";
 import Footer from "../Footer";
-import CourseDetails from './CourseDetails';
+import CourseDetails from "./CourseDetails";
 
 type Props = {
   id: string;
@@ -36,8 +36,8 @@ const CourseDetailsPage = ({ id }: Props) => {
             setRoute={setRoute}
             route={route}
           />
-          <CourseDetails/>
-          <Footer/>
+          <CourseDetails data={data.course} />
+          <Footer />
         </div>
       )}
     </>
