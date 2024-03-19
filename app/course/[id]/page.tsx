@@ -1,11 +1,10 @@
-import React from 'react'
+'use client'
+import CourseDetailsPage from '../../components/Course/CourseDetailsPage'
+const Page = ({params}:any)=>{
 
-type Props = {}
-
-const page = (props: Props) => {
-  return (
-    <div>page</div>
-  )
-}
-
-export default page
+    return(
+        <div>
+            <CourseDetailsPage/>
+        </div>
+    )
+};
