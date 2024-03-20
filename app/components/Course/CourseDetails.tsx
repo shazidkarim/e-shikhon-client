@@ -87,7 +87,7 @@ const CourseDetails = ({ data }: Props) => {
                 Course Overview
               </h1>
               {/* here is course content list component  */}
-              <CourseContentList/>
+              <CourseContentList data ={data?.courseData} isDemo={true}/>
             </div>
             <br />
             <br />
