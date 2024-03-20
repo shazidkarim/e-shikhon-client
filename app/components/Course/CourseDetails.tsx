@@ -5,7 +5,8 @@ import React from "react";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { format } from "timeago.js";
-import { styles } from "@/app/styles/style";
+import { styles } from "../../../app/styles/style";
+import CourseContentList from  '../Course/CourseContentList';
 type Props = {
   data: any;
 };
@@ -86,6 +87,7 @@ const CourseDetails = ({ data }: Props) => {
                 Course Overview
               </h1>
               {/* here is course content list component  */}
+              <CourseContentList/>
             </div>
             <br />
             <br />
