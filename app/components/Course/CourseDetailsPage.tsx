@@ -6,6 +6,7 @@ import { DataArray } from "@mui/icons-material";
 import Header from "../Header";
 import Footer from "../Footer";
 import CourseDetails from "./CourseDetails";
+import { useGetStripePublishablekeyQuery } from "../../../redux/features/orders/OrdersApi";
 
 type Props = {
   id: string;
@@ -14,8 +15,8 @@ type Props = {
 const CourseDetailsPage = ({ id }: Props) => {
   const [route, setRoute] = useState("login");
   const [open, setOpen] = useState(false);
-
-  const { data, isLoading } = useGetCourseDetailsQuery(id);
+const {data,isLoading} = useGetCourseDetailsQuery(id);
+const {data:config} = useGetStripePublishablekeyQuery({});
   return (
     <>
       {isLoading ? (
