@@ -1,6 +1,7 @@
 import { styles } from "@/app/styles/style";
 import CoursePlayer from "@/app/utils/CoursePlayer";
 import React from "react";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 type Props = {
   data: any;
@@ -23,14 +24,36 @@ const CourseContentMedia = ({
       />
       <div className="w-full flex items-center justify-between my-3">
         <div
-          className={`${styles.button} !min-h-[40px] !py-[unset] ${
+          className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset] ${
             activeVideo === 0 && "!cursor-no-drop opacity-[.8]"
           }`}
           onClick={() =>
             setActiveVideo(activeVideo === 0 ? 0 : activeVideo - 1)
           }
-        ></div>
+        >
+          <AiOutlineArrowLeft className="mr-2" />
+          prev lession
+        </div>
+        <div
+          className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset] ${
+            data.length - 1 === activeVideo && "!cursor-no-drop opacity-[.8]"
+          }`}
+          onClick={() =>
+            setActiveVideo(
+              data && data.length - 1 === activeVideo
+                ? activeVideo
+                : activeVideo + 1
+            )
+          }
+        >
+          <AiOutlineArrowLeft className="mr-2" />
+          next lession
+        </div>
       </div>
+      <h1 className="pt-2 text-[25px] font-[600]">
+{data[activeVideo]?.title}
+      </h1>
+      <br />
     </div>
   );
 };
