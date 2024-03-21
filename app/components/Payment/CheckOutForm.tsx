@@ -7,7 +7,10 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import React, { useState } from "react";
+import {} from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 type Props = {
   setOpen: any;
@@ -41,6 +44,21 @@ const CheckOutForm = ({ setOpen, data }: Props) => {
       createOrder({ courseId: data._id, payment_info: paymentIntent });
     }
   };
+
+  useEffect(() => {
+    if (orderData) {
+      setLoadUser(true);
+      redirect(`/course-access/${data._id}`);
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderData, error]);
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
