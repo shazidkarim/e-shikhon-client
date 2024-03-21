@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import { Josefin_Sans } from "next/font/google";
@@ -30,18 +30,18 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${josefine.variable}  bg-no-repeat !bg-white dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}
       >
-            <Providers>
-              <SessionProvider>
+        <Providers>
+          <SessionProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Custom>{children}</Custom>
-              <Toaster position="top-center" reverseOrder={false}/>
+              <Custom>{children}</Custom>
+              <Toaster position="top-center" reverseOrder={false} />
             </ThemeProvider>
-            </SessionProvider>
-            </Providers>
+          </SessionProvider>
+        </Providers>
       </body>
     </html>
   );
-};
+}
 const Custom: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isLoading } = useLoadUserQuery({});
   return <>{isLoading ? <Loader /> : <>{children}</>}</>;
