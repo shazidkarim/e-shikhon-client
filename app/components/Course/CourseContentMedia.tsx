@@ -51,7 +51,7 @@ const CourseContentMedia = ({
         </div>
       </div>
       <h1 className="pt-2 text-[25px] font-[600]">
-{data[activeVideo]?.title}
+        {data[activeVideo]?.title}
       </h1>
       <br />
     </div>

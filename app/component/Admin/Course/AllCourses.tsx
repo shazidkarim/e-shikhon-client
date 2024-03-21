@@ -65,7 +65,7 @@ const AllCourses = () => {
   const rows: any = [];
 
   {
-    data && data.courses.forEach((item: any) => {
+    data && data?.courses?.forEach((item: any) => {
         rows.push({
           id: item._id,
           title: item.name,
