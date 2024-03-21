@@ -1,55 +1,56 @@
-import { useActivationMutation } from '@/redux/features/auth/authApi';
-import { styles } from '../../../app/styles/style';
-import React,{ FC, useEffect, useRef, useState }from 'react'
+import { useActivationMutation } from "@/redux/features/auth/authApi";
+import { styles } from "../../../app/styles/style";
+import React, { FC, useEffect, useRef, useState } from "react";
 import toast, { Toast } from "react-hot-toast";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 type Props = {
-    setRoute: (route: string) => void;
-}
+  setRoute: (route: string) => void;
+};
 type VerifyNumber = {
-    "0": string;
-    "1": string;
-    "2": string;
-    "3": string;
-  };
-  const Verification: FC<Props> = ({ setRoute }) => {
-    const { token } = useSelector((state: any) => state.auth);
-    const [activation, { isSuccess, error }] = useActivationMutation();
-    const [invalidError, setInvalidError] = useState<boolean>(false);
+  "0": string;
+  "1": string;
+  "2": string;
+  "3": string;
+};
+const Verification: FC<Props> = ({ setRoute }) => {
+  const { token } = useSelector((state: any) => state.auth);
+  const [activation, { isSuccess, error }] = useActivationMutation();
+  const [invalidError, setInvalidError] = useState<boolean>(false);
 
-    useEffect(() => {
-      if (isSuccess) {
-        toast.success("Acount activated successful");
-        setRoute("Login");
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Acount activated successful");
+      setRoute("Login");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message);
+        setInvalidError(true);
+      } else {
+        console.log("An error occured", error);
       }
-      if (error) {
-        if ("data" in error) {
-          const errorData = error as any;
-          toast.error(errorData.data.message);
-          setInvalidError(true);
-        } else {
-          console.log("An error occured", error);
-        }
-      }
-    }, [isSuccess, error]);
+    }
+  }, [isSuccess, error]);
 
-    const inputRefs = [
-        useRef<HTMLInputElement>(null),
-        useRef<HTMLInputElement>(null),
-        useRef<HTMLInputElement>(null),
-        useRef<HTMLInputElement>(null),
-      ];
-      const [verifyNumber, setVerifyNumber] = useState<VerifyNumber>({
-        0: "",
-        1: "",
-        2: "",
-        3: "",
-      });
+  const inputRefs = [
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+  ];
+  const [verifyNumber, setVerifyNumber] = useState<VerifyNumber>({
+    0: "",
+    1: "",
+    2: "",
+    3: "",
+  });
 
-      const verifictionHandler = async () => {
-        const verifictioNumber = Object.values(verifyNumber).join("");
+  const verifictionHandler = async () => {
+    const verifictioNumber = Object.values(verifyNumber).join("");
+    console.log(verifictioNumber, "verification Number");
 
     if (verifictioNumber.length !== 4) {
       setInvalidError(true);
@@ -59,22 +60,22 @@ type VerifyNumber = {
       activation_token: token,
       activation_code: verifictioNumber,
     });
-    console.log(token,verifictioNumber)
+    console.log(token, verifictioNumber);
   };
 
-      const handleInputChange = (index: number, value: string) => {
-        setInvalidError(false);
-        const newVerifyNumber = { ...verifyNumber, [index]: value };
-        setVerifyNumber(newVerifyNumber);
-        if (value === "" && index > 0) {
-          inputRefs[index - 1].current?.focus();
-        } else if (value.length === 1 && index < 3) {
-          inputRefs[index + 1].current?.focus();
-        }
-      };
+  const handleInputChange = (index: number, value: string) => {
+    setInvalidError(false);
+    const newVerifyNumber = { ...verifyNumber, [index]: value };
+    setVerifyNumber(newVerifyNumber);
+    if (value === "" && index > 0) {
+      inputRefs[index - 1].current?.focus();
+    } else if (value.length === 1 && index < 3) {
+      inputRefs[index + 1].current?.focus();
+    }
+  };
   return (
     <div>
-    <h1 className={`${styles.title}`}>Verify Your Acount</h1>
+      <h1 className={`${styles.title}`}>Verify Your Acount</h1>
       <br />
       <div className="w-full flex items-center justify-center mt-2">
         <div className="w-[80px] h-[80px] rounded-full bg-[#497DF2] flex items-center justify-center  ">
@@ -115,12 +116,11 @@ type VerifyNumber = {
           className="text-[#2190ff] pl-1 cursor-pointer"
           onClick={() => setRoute("Login")}
         >
-            
           Sign in
         </span>
       </h5>
     </div>
-  )
-}
+  );
+};
 
 export default Verification;

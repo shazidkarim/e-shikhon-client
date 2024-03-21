@@ -129,14 +129,14 @@ const CourseContent: FC<Props> = ({
     <div className="w-[80%] m-auto mt-24 p-3">
       <form onSubmit={handleSubmit}>
         {courseContentData?.map((item: any, index: number) => {
-        const showSectionInput = index === 0 || item.videoSection !== courseContentData[index - 1].videoSection;
+          const showSectionInput =
+            index === 0 ||
+            item.videoSection !== courseContentData[index - 1].videoSection;
 
-    return (
+          return (
             <>
               <div
-                className={`w-full bg-[#cdc8c8] p-3 ${
-                  showSectionInput ? "mt-10" : "mb-0"
-                }`}
+                className={`w-full  p-3 ${showSectionInput ? "mt-10" : "mb-0"}`}
               >
                 {showSectionInput && (
                   <>
@@ -260,9 +260,9 @@ const CourseContent: FC<Props> = ({
                       />
                       <br />
                     </div>
-                    {item?.links.map((link: any, linkIndex: number) => {
-                      <div className="mb-3 block ">
-                        <div className="w-full flex items-center justify-between ">
+                    {item?.links?.map((link: any, linkIndex: number) => (
+                      <div className="mb-3 block" key={linkIndex}>
+                        <div className="w-full flex items-center justify-between">
                           <label className={styles.label}>
                             Link {linkIndex + 1}
                           </label>
@@ -303,8 +303,9 @@ const CourseContent: FC<Props> = ({
                             setCourseContentData(updateData);
                           }}
                         />
-                      </div>;
-                    })}
+                      </div>
+                    ))}
+
                     <br />
                     {/* add link button */}
                     <div className="inline-block mb-4">
