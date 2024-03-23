@@ -11,7 +11,7 @@ type Props = {
 };
 
 const CourseCard: FC<Props> = ({ item, isProfile }) => {
-  console.log("this is item", item);
+  // console.log("this is item", item);
 
   const getYoutubeVideoId = (url: string) => {
     const match = url.match(

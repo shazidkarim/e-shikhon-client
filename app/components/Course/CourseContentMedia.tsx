@@ -54,6 +54,9 @@ const CourseContentMedia = ({
         {data[activeVideo]?.title}
       </h1>
       <br />
+      <div className="w-full flex items-center justify-between bg-slate-500 bg-opacity-20 backdrop-blur shadow-[bg-sla]">
+
+      </div>
     </div>
   );
 };
