@@ -10,7 +10,7 @@ type Props = {
   user: any;
 };
 
-const CourseContent = ({ id }: Props) => {
+const CourseContent = ({ id,user }: Props) => {
 const [open, setOpen] = useState(false);
 const [route, setRoute] = useState('Login')
   const { data: contentData, isLoading } = useGetCourseContentQuery(id);
@@ -33,6 +33,7 @@ const [route, setRoute] = useState('Login')
             <CourseContentMedia
               data={data}
               id={id}
+              user={user}
               activeVideo={activeVideo}
               setActiveVideo={setActiveVideo}
             />

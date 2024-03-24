@@ -1,10 +1,12 @@
 import { styles } from "@/app/styles/style";
 import CoursePlayer from "@/app/utils/CoursePlayer";
+import Image from "next/image";
 import React, { useState } from "react";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { AiFillStar, AiOutlineArrowLeft, AiOutlineStar } from "react-icons/ai";
 
 type Props = {
   data: any;
+  user: any;
   id: string;
   activeVideo: number;
   setActiveVideo: (activeVideo: number) => void;
@@ -13,10 +15,18 @@ type Props = {
 const CourseContentMedia = ({
   data,
   id,
+  user,
   activeVideo,
   setActiveVideo,
 }: Props) => {
   const [activeBar, setActiveBar] = useState(0);
+  const [question, setQuestion] = useState("");
+  const [rating, setRating] = useState(0);
+
+  const isReviewExists = data.reviews?.find(
+    (item: any) => item.user._id === user._id
+  );
+
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
       <CoursePlayer
@@ -98,15 +108,81 @@ const CourseContentMedia = ({
           ))}
         </div>
       )}
-      {
-        activeBar === 2 && (
-          <>
+      {activeBar === 2 && (
+        <>
           <div className="flex w-full">
-
+            <Image
+              src={user.avatar ? user.avatar.url : ""}
+              width={50}
+              height={50}
+              alt=""
+              className="w-[50px] h-[50px] rounded-full object-cover"
+            />
+            <textarea
+              name=""
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              id=""
+              cols={40}
+              rows={5}
+              placeholder="white your questions ..."
+              className=" outline-none bg-transparent ml-3 border border-[#ffffff57] 800px:w-full p-2 rounded w-[90%] 800px:text-[18px] font-Poppins"
+            ></textarea>
           </div>
-          </>
-        )
-      }
+          <div className="w-full flex justify-end">
+            <div
+              className={`${styles.button}  !w-[120px] !h-[40px] text-[18px] mt-5`}
+            ></div>
+          </div>
+          <br />
+          <br />
+          <div className="w-full h-[1px] bg-[#ffffff3b]"></div>
+          <div>{/* question reply */}</div>
+        </>
+      )}
+      {activeBar === 3 && (
+        <div className="w-full">
+          {!isReviewExists && (
+            <>
+              <div className="w-full flex">
+                <Image
+                  src={user.avatar ? user.avatar.url : ""}
+                  width={50}
+                  height={50}
+                  alt=""
+                  className="w-[50px] h-[50px] rounded-full object-cover"
+                />
+                <div className="w-full">
+                  <h5 className="pl-3 text-[20px] font-[500] text-black dark:text-white">
+                    Give a Rating <span className="text-red-500"> *</span>
+                  </h5>
+                  <div className="flex w-full ml-2 pb-3 ">
+                    {[1, 2, 3, 4, 5].map((i) =>
+                      rating >= i ? (
+                        <AiFillStar
+                          key={i}
+                          color="rgb(246,186,0)"
+                          size={25}
+                          onClick={() => setRating(i)}
+                          className="mr-1 cursor-pointer"
+                        />
+                      ) : (
+                        <AiOutlineStar
+                          key={i}
+                          color="rgb(246,186,0)"
+                          size={25}
+                          onClick={() => setRating(i)}
+                          className="mr-1 cursor-pointer"
+                        />
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };
