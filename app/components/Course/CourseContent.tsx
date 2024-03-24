@@ -3,11 +3,16 @@ import Loader from "../../../app/component/Loader";
 import { useGetCourseContentQuery } from "../../../redux/features/courses/coursesApi";
 import React, { useState } from "react";
 import CourseContentMedia from './CourseContentMedia';
+import Header from "../Header";
+import CourseContentList from "./CourseContentList";
 type Props = {
   id: any;
+  user: any;
 };
 
 const CourseContent = ({ id }: Props) => {
+const [open, setOpen] = useState(false);
+const [route, setRoute] = useState('Login')
   const { data: contentData, isLoading } = useGetCourseContentQuery(id);
   const data = contentData?.content;
   const [activeVideo, setActiveVideo] = useState(0);
@@ -16,7 +21,9 @@ const CourseContent = ({ id }: Props) => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="w-full grid 800px:grid-cols-10">
+       <>
+<Header activeItem={1} open={open} setOpen={setOpen}  route={route} setRoute={setRoute}/>
+<div className="w-full grid 800px:grid-cols-10">
           <Heading
             title={data[activeVideo]?.title}
             description="anything"
@@ -30,7 +37,15 @@ const CourseContent = ({ id }: Props) => {
               setActiveVideo={setActiveVideo}
             />
           </div>
+          <div className="800px:col-span-3 800px:block hidden">
+            <CourseContentList
+              data={data}
+              activeVideo={activeVideo}
+              setActiveVideo={setActiveVideo}
+            />
+          </div>
         </div>
+       </>
       )}
     </>
   );

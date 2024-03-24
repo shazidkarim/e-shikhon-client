@@ -1,6 +1,6 @@
 import { styles } from "@/app/styles/style";
 import CoursePlayer from "@/app/utils/CoursePlayer";
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 type Props = {
@@ -16,6 +16,7 @@ const CourseContentMedia = ({
   activeVideo,
   setActiveVideo,
 }: Props) => {
+  const [activeBar, setActiveBar] = useState(0);
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
       <CoursePlayer
@@ -24,7 +25,9 @@ const CourseContentMedia = ({
       />
       <div className="w-full flex items-center justify-between my-3">
         <div
-          className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset] ${
+          className={`${
+            styles.button
+          }text-white !w-[unset] !min-h-[40px] !py-[unset] ${
             activeVideo === 0 && "!cursor-no-drop opacity-[.8]"
           }`}
           onClick={() =>
@@ -35,7 +38,9 @@ const CourseContentMedia = ({
           prev lession
         </div>
         <div
-          className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset] ${
+          className={`${
+            styles.button
+          } text-white !w-[unset] !min-h-[40px] !py-[unset] ${
             data.length - 1 === activeVideo && "!cursor-no-drop opacity-[.8]"
           }`}
           onClick={() =>
@@ -46,17 +51,62 @@ const CourseContentMedia = ({
             )
           }
         >
-          <AiOutlineArrowLeft className="mr-2" />
           next lession
+          <AiOutlineArrowLeft className="mr-2" />
         </div>
       </div>
-      <h1 className="pt-2 text-[25px] font-[600]">
+      <h1 className="pt-2 text-[25px] font-[600] text-black dark:text-white">
         {data[activeVideo]?.title}
       </h1>
       <br />
-      <div className="w-full flex items-center justify-between bg-slate-500 bg-opacity-20 backdrop-blur shadow-[bg-sla]">
-
+      <div className="w-full flex items-center justify-between bg-slate-500 bg-opacity-20 backdrop-blur shadow-[bg-slate-700] rounded shadow-inner">
+        {["Overview", "Resources", "Q&A", "Reviews"].map((text, index) => (
+          <h5
+            key={index}
+            className={`800px:text-[20px]  cursor-pointer ${
+              activeBar === index
+                ? "text-red-500"
+                : "text-black dark:text-white"
+            }`}
+            onClick={() => setActiveBar(index)}
+          >
+            {text}
+          </h5>
+        ))}
       </div>
+      <br />
+      {activeBar === 0 && (
+        <p className="text-[18px] whitespace-pre-line text-black dark:text-white mb-3">
+          {data[activeVideo]?.description}
+        </p>
+      )}
+      {activeBar === 1 && (
+        <div>
+          {data[activeVideo]?.links.map((item: any, index: any) => (
+            <div key={index} className="mb-5">
+              <h2 className="800px:text-[20px] 800px:inline-block">
+                {item.title && item.title + ":"}
+              </h2>
+              <a
+                href={item.url}
+                className="inline-block text-[#4395c4] 800px:text-[20px] 800px:pl-2"
+              >
+                {" "}
+                {item.url}
+              </a>
+            </div>
+          ))}
+        </div>
+      )}
+      {
+        activeBar === 2 && (
+          <>
+          <div className="flex w-full">
+
+          </div>
+          </>
+        )
+      }
     </div>
   );
 };

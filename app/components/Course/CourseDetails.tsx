@@ -18,7 +18,7 @@ type Props = {
 
 const CourseDetails = ({ data,clientSecret,stripePromise }: Props) => {
   const { data:userData } = useLoadUserQuery(undefined,{});
-  console.log("this is data",data)
+  // console.log("this is data",data)
   const user = userData?.user;
   const [open, setOpen] = useState(false);
   const discountPercentenge =
@@ -118,7 +118,7 @@ const CourseDetails = ({ data,clientSecret,stripePromise }: Props) => {
                   {Number.isInteger(data?.ratings)
                     ? data?.ratings?.toFixed(1)
                     : data?.ratings?.toFixed(2)}{" "}
-                  Course Rating * {data?.review?.length} reviews
+                  Course Rating 5* {data?.review?.length} 0 reviews
                 </h5>
               </div>
               <br />
