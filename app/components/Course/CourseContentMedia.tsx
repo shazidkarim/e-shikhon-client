@@ -22,6 +22,7 @@ const CourseContentMedia = ({
   const [activeBar, setActiveBar] = useState(0);
   const [question, setQuestion] = useState("");
   const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
 
   const isReviewExists = data.reviews?.find(
     (item: any) => item.user._id === user._id
@@ -177,7 +178,22 @@ const CourseContentMedia = ({
                       )
                     )}
                   </div>
+                  <textarea
+                    name=""
+                    value={review}
+                    onChange={(e) => setReview(e.target.value)}
+                    id=""
+                    cols={40}
+                    rows={5}
+                    placeholder="white your comment ..."
+                    className=" outline-none bg-transparent ml-3 border border-[#ffffff57] 800px:w-full p-2 rounded w-[90%] 800px:text-[18px] font-Poppins"
+                  ></textarea>
                 </div>
+              </div>
+              <div className="w-full flex justify-end">
+                <div
+                  className={`${styles.button}  !w-[120px] !h-[40px] text-[18px] mt-5`}
+                ></div>
               </div>
             </>
           )}
