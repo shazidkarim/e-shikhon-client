@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillStar, AiOutlineArrowLeft, AiOutlineStar } from "react-icons/ai";
+import { BiMessage } from "react-icons/bi";
 import { format } from "timeago.js";
 
 type Props = {
@@ -300,23 +301,94 @@ const CommentItem = ({
   setAnswer,
   handleAnswerSubmit,
 }: any) => {
+  const [replyActive, setReplyActive] = useState(false);
   return (
     <>
       <div className="my-4">
         <div className="flex mb-2">
-          <div className="w-[50px] h-[50px]">
-            <div className="w-[50px] h-[50px] bg-slate-600 rounded-[50px] flex items-center justify-center cursor-pointer">
-              <h1 className="uppercase text-[18px]">
-                {item?.user.name.slice(0, 2)}
-              </h1>
-            </div>
+          <div>
+            <Image
+              src={item.user.avatar ? item.user.avatar.url : ""}
+              width={50}
+              height={50}
+              alt=""
+              className="w-[50px] h-[50px] rounded-full object-cover"
+            />
           </div>
-          <div className="pl-3">
+          <div className="pl-3 dark:text-white text-black">
             <h5 className="text-[20px]">{item.user.name}</h5>
             <p>{item?.question}</p>
-            <small className="text-[#ffffff83]">{!item.createdAt ? "" : format(item?.createdAt)}</small>
+            <small className="text-[#000000b8] dark:text-[#ffffff83]">
+              {!item.createdAt ? "" : format(item?.createdAt)}
+            </small>
           </div>
         </div>
+        <div className="w-full flex">
+          <span
+            className="800px:pl-16 text-[#000000b8] dark:text-[#ffffff83] cursor-pointer mr-2"
+            onClick={() => setReplyActive(!replyActive)}
+          >
+            {!replyActive
+              ? item.questionReplies.length !== 0
+                ? "all replies"
+                : "add replies"
+              : "hide replies"}
+          </span>
+          <BiMessage
+            size={20}
+            className=" cursor-pointer dark:text-[#ffffff83] text-[#000000b8]"
+          />
+          <span className="pl-1 mt-[-4px] cursor-pointer dark:text-[#ffffff83] text-[#000000b8]">
+            {item.questionReplies.length}
+          </span>
+        </div>
+        {replyActive && (
+          <>
+            {item.questionReplies.map((item: any) => (
+              <div
+                className="w-full flex 800px:ml-16 my-5 dark:text-white text-black"
+                key={item}
+              >
+                <div>
+                  <Image
+                    src={item.user.avatar ? item.user.avatar.url : ""}
+                    width={50}
+                    height={50}
+                    alt=""
+                    className="w-[50px] h-[50px] rounded-full object-cover"
+                  />
+                </div>
+                <div className="pl-3 dark:text-white text-black">
+                  <h5 className="text-[20px]">{item.user.name}</h5>
+                  <p>{item?.comment}</p>
+                  <small className="text-[#000000b8] dark:text-[#ffffff83]">
+                    {format(item?.createdAt)}
+                  </small>
+                </div>
+              </div>
+            ))}
+            <>
+              <div className="w-full flex relative dark:text-white text-black">
+                <input
+                  type="text"
+                  placeholder="enter your reply ..."
+                  value={answer}
+                  onChange={(e:any) => setAnswer(e.target.value)}
+                  className="block 800px:ml-12 mt-2 outline-none bg-transparent border-b dark:text-white text-black border-[#00000027]  dark:border-[#fff] p-[5px] w-[95%]"
+                />
+                <button
+                  className="absolute right-0 bottom-1"
+                  type="submit"
+                  onClick={handleAnswerSubmit}
+                  disabled= {answer === ""}
+                >
+                  submit
+                </button>
+              </div>
+              <br />
+            </>
+          </>
+        )}
       </div>
     </>
   );
