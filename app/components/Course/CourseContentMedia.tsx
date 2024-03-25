@@ -1,6 +1,6 @@
 import { styles } from "@/app/styles/style";
 import CoursePlayer from "@/app/utils/CoursePlayer";
-import { useAddNewQuestionMutation } from "@/redux/features/courses/coursesApi";
+import { useAddAnswerInQuestionMutation, useAddNewQuestionMutation } from "@/redux/features/courses/coursesApi";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -30,12 +30,14 @@ const CourseContentMedia = ({
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [answer, setAnswer] = useState("");
-  const [answerId, setAnswerId] = useState("");
+  const [questionId, setquestionId] = useState("");
   const [
     addNewQuestion,
     { isSuccess, error, isLoading: questionCreationLoading },
   ] = useAddNewQuestionMutation();
 
+
+  const [addAnswerInQuestion,{isSuccess:answerSuccess, error:answerError,isLoading:answerCreationLoading}] =   useAddAnswerInQuestionMutation({});
   const isReviewExists = data.reviews?.find(
     (item: any) => item.user._id === user._id
   );
@@ -62,6 +64,11 @@ const CourseContentMedia = ({
       refetch();
       toast.success("question added successfully");
     }
+    if(answerSuccess){
+      setAnswer("");
+      refetch();
+      toast.success("answer added successfully");
+    }
     if (error) {
       if ("data" in error) {
         const errorMessage = error.data as any;
@@ -72,6 +79,8 @@ const CourseContentMedia = ({
   }, [isSuccess, error]);
 
   const handleAnswerSubmit = () => {
+    // answer, courseId, contentId, questionId
+    addAnswerInQuestion({answer, courseId:id, contentId:data[activeVideo]._id, questionId:questionId})
     console.log("ffff");
   };
 
@@ -198,7 +207,7 @@ const CourseContentMedia = ({
               setAnswer={setAnswer}
               handleAnswerSubmit={handleAnswerSubmit}
               user={user}
-              setAnswerId={setAnswerId}
+              setquestionId={setquestionId}
             />
           </div>
         </>
@@ -272,7 +281,7 @@ const CommentReply = ({
   setAnswer,
   handleAnswerSubmit,
   user,
-  setAnswerId,
+  setquestionId,
 }: any) => {
   return (
     <>
@@ -284,7 +293,7 @@ const CommentReply = ({
             item={item}
             index={index}
             answer={answer}
-            setAnswer={setAnswer}
+            setquestionId={setquestionId}
             handleAnswerSubmit={handleAnswerSubmit}
           />;
         })}
@@ -298,7 +307,7 @@ const CommentItem = ({
   activeVideo,
   item,
   answer,
-  setAnswer,
+  setquestionId,
   handleAnswerSubmit,
 }: any) => {
   const [replyActive, setReplyActive] = useState(false);
@@ -326,7 +335,7 @@ const CommentItem = ({
         <div className="w-full flex">
           <span
             className="800px:pl-16 text-[#000000b8] dark:text-[#ffffff83] cursor-pointer mr-2"
-            onClick={() => setReplyActive(!replyActive)}
+            onClick={() => {setReplyActive(!replyActive),setquestionId(item._id)}}
           >
             {!replyActive
               ? item.questionReplies.length !== 0
@@ -373,7 +382,7 @@ const CommentItem = ({
                   type="text"
                   placeholder="enter your reply ..."
                   value={answer}
-                  onChange={(e:any) => setAnswer(e.target.value)}
+                  onChange={(e:any) => setquestionId(e.target.value)}
                   className="block 800px:ml-12 mt-2 outline-none bg-transparent border-b dark:text-white text-black border-[#00000027]  dark:border-[#fff] p-[5px] w-[95%]"
                 />
                 <button
