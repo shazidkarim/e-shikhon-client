@@ -1,9 +1,11 @@
 import { styles } from "@/app/styles/style";
 import CoursePlayer from "@/app/utils/CoursePlayer";
+import Ratings from "@/app/utils/Ratings";
 import {
   useAddAnswerInQuestionMutation,
   useAddNewQuestionMutation,
   useAddReviewInCourseMutation,
+  useGetCourseDetailsQuery,
 } from "@/redux/features/courses/coursesApi";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -36,6 +38,7 @@ const CourseContentMedia = ({
   const [review, setReview] = useState("");
   const [answer, setAnswer] = useState("");
   const [questionId, setquestionId] = useState("");
+  const [isReviewReply, setIsReviewReply] = useState(false);
   const [
     addNewQuestion,
     { isSuccess, error, isLoading: questionCreationLoading },
@@ -48,7 +51,10 @@ const CourseContentMedia = ({
       isLoading: reviewCreationLoading,
     },
   ] = useAddReviewInCourseMutation();
-
+  const { data: courseData, refetch: courseRefetch } = useGetCourseDetailsQuery(
+    id,
+    { refetchOnMountOrArgChange: true }
+  );
   const [
     addAnswerInQuestion,
     {
@@ -57,7 +63,8 @@ const CourseContentMedia = ({
       isLoading: answerCreationLoading,
     },
   ] = useAddAnswerInQuestionMutation({});
-  const isReviewExists = data.reviews?.find(
+  const course = courseData?.course;
+  const isReviewExists = course?.reviews?.find(
     (item: any) => item.user._id === user._id
   );
   const handleQuestion = () => {
@@ -104,6 +111,7 @@ const CourseContentMedia = ({
       setReview("");
       setRating(1);
       refetch();
+      courseRefetch();
       toast.success("review added successfully");
     }
     if (reviewError) {
@@ -331,10 +339,37 @@ const CourseContentMedia = ({
             <br />
             <div className="w-full h-[1px] bg-[#ffffff3b]"></div>
             <div className="w-full">
-        {(data?.reviews && [...data.reviews].reverse()).map((item:any,index:number) =>(
-          <div className="w-full "> </div>
-        ))}
+              {(course?.reviews && [...data.reviews].reverse()).map(
+                (item: any, index: number) => (
+                  <div key={index} className="w-full my-5 dark:text-white text-black">
+                    <div className="w-full flex">
+                      <div>
+                        <Image
+                          src={item.user.avatar ? item.user.avatar.url : ""}
+                          width={50}
+                          height={50}
+                          alt=""
+                          className="w-[50px] h-[50px] rounded-full object-cover"
+                        />
+                      </div>
+                      <div className="ml-2">
+                        <h1 className="text-[18px]">{item?.user.name}</h1>
+                        <Ratings rating={item.rating} />
+                        <p>{item.comment}</p>
+                        <small className="text-[#ffffff83]">
+                          {format(item.createdAt)}
+                        </small>
+                      </div>
+                    </div>
+    
+                  </div>
+                )
+              )}
             </div>
+            <br />
+            {isReviewReply && (
+              <input type="text" name="" id="" className={styles.input} />
+            )}
           </>
         </div>
       )}
