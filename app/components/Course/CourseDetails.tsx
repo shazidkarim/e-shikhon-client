@@ -10,6 +10,7 @@ import CourseContentList from "../Course/CourseContentList";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckOutForm from "../Payment/CheckOutForm";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
+import CourseContent from "./CourseContent";
 type Props = {
   data: any;
   clientSecret: string;
@@ -185,14 +186,17 @@ const CourseDetails = ({
                 >
                   Enter to course
                 </Link>
-              ) : (
+              ) 
+              : (
                 <div
                   className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                   onClick={handleOrder}
                 >
+                  
                   buy now {data.price}$
                 </div>
-              )}
+              )
+              }
             </div>
             <br />
             <p className="pb-1 text-black dark:text-white ">
