@@ -14,6 +14,10 @@ import { AiFillStar, AiOutlineArrowLeft, AiOutlineStar } from "react-icons/ai";
 import { BiMessage } from "react-icons/bi";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import { format } from "timeago.js";
+import socketIO from "socket.io-client";
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
+const socketId = socketIO(ENDPOINT,{transports: ["websocket"]});
+
 
 type Props = {
   data: any;
@@ -89,6 +93,11 @@ const CourseContentMedia = ({
       setQuestion("");
       refetch();
       toast.success("question added successfully");
+      socketId.emit("notification",{
+        title: " new question reveived",
+        message:`you have a new qyestion in ${data[activeVideo].title}`,
+        userId: user._id,
+      })
     }
     if (answerSuccess) {
       setAnswer("");
@@ -113,6 +122,11 @@ const CourseContentMedia = ({
       refetch();
       courseRefetch();
       toast.success("review added successfully");
+      socketId.emit("notification",{
+        title: " new reply reveived",
+        message:`you have a new reply in ${data[activeVideo].title}`,
+        userId: user._id,
+      })
     }
     if (reviewError) {
       if ("data" in reviewError) {
