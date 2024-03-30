@@ -70,7 +70,8 @@ useEffect(()=>{
           />
           {
             stripePromise && (
-              <CourseDetails data={data.course}  stripePromise={stripePromise} clientSecret={ClientSecret}/>
+              <CourseDetails data={data.course}  stripePromise={stripePromise} clientSecret={ClientSecret}
+              />
             )
           }
           <Footer />

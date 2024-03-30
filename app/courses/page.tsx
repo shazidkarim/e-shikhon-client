@@ -6,6 +6,8 @@ import React, { FC, useEffect, useState } from "react";
 import Loader from "../component/Loader";
 import Header from "../components/Header";
 import Heading from "../utils/Heading";
+import { styles } from "../styles/style";
+import CourseCard from "../components/Course/CourseCard";
 
 type Props = {};
 
@@ -21,25 +23,25 @@ const Page = (props: Props) => {
 
   useEffect(() => {
     if (category === "All") {
-      setCourses(data?.courses);
+      setCourses(data?.course);
     }
     if (category !== "All") {
       setCourses(
-        data?.courses?.filter((item: any) => item.categories === category)
+        data?.course?.filter((item: any) => item.categories === category)
       );
     }
     if (search) {
       setCourses(
-        data?.courses?.filter((item: any) =>
+        data?.course?.filter((item: any) =>
           item.name.toLowerCase().includes(search.toLowerCase())
         )
       );
     }
   }, [data, category, search]);
-  console.log(data.courses)
+  console.log("this is hero data", data);
 
   const categories = categoriesData?.layout.categories;
-  console.log(categoriesData)
+  console.log(categories);
 
   return (
     <div>
@@ -77,10 +79,30 @@ const Page = (props: Props) => {
                       className={`h-[35px] ${
                         category === item.title
                           ? "bg-[crimson]"
-                          : "bg-[#5050cb]" }  m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer`}
-                          onClick={()=> setCategory(item.title)}
-                    >{item.title}</div>
+                          : "bg-[#5050cb]"
+                      }  m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer`}
+                      onClick={() => setCategory(item.title)}
+                    >
+                      {item.title}
+                    </div>
                   </div>
+                ))}
+            </div>
+            {courses && courses.length === 0 && (
+              <p
+                className={`${styles.label} justify-center min-h-[50vh] flex items-center`}
+              >
+                {search
+                  ? "no course found"
+                  : "no course found in this category"}
+              </p>
+            )}
+            <br />
+            <br />
+            <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] 1500px:grid-cols-4 1500px:gap-[35px] mb-12 border-0 ">
+              {courses &&
+                courses.map((item: any, index: number) => (
+                  <CourseCard item={item} key={index} />
                 ))}
             </div>
           </div>
@@ -88,6 +110,7 @@ const Page = (props: Props) => {
       )}
     </div>
   );
+  
 };
 
 export default Page;
