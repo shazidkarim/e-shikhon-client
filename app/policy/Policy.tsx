@@ -6,7 +6,7 @@ type Props = {};
 const Policy = (props: Props) => {
   return (
     <div>
-    <div className={"w-[95%] 800px:w-[92%] m-auto py-2 text-white px-3"}>
+    <div className={"w-[95%] 800px:w-[92%] m-auto py-2 text-black dark:text-white px-3"}>
       <h1 className={`${styles.title} pt-2 text-center font-Poppins 800px:!text-[45px]`}>Our   <span className="text-purple-600">eShikhon</span>  Policy</h1>
       <div className="mt-4">
         <h2 className="text-2xl font-semibold font-Poppins">Privacy Policy</h2>

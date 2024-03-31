@@ -41,7 +41,7 @@ const Profile: FC<Props> = ({ user }) => {
           active={active}
           avatar={avatar}
           setActive={setActive}
-          logouutHanmler={logOutHandler}/>
+          logOutHandler={logOutHandler}/>
       </div>
       {active === 1 && (
         <div className="w-full h-full bg-transparent mt-[80px] ">
