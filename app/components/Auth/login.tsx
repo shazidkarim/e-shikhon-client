@@ -48,6 +48,7 @@ const schema = Yup.object().shape({
               toast.error(errorDarta.data.message);
             }
           }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [isSuccess, error]);
     const { errors, touched, values, handleChange, handleSubmit } = formik;
   

@@ -42,6 +42,7 @@ const Header: FC<Props> =({activeItem,setOpen,route,open,setRoute}) => {
           toast.success("Login Successfully");
         }
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, user]);
 
     if (typeof window !== "undefined") {
